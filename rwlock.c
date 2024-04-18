@@ -5,47 +5,45 @@
 
 #include "common.h"
 #include "common_threads.h"
+#include "rwlock.h"
 
-#ifdef linux
 #include <semaphore.h>
-#elif __APPLE__
-#include "zemaphore.h"
-#endif
 
-typedef struct _rwlock_t {
-    sem_t writelock;
-    sem_t lock;
-    int readers;
-} rwlock_t;
+
+// #ifdef linux
+// #include <semaphore.h>
+// #elif __APPLE__
+// #include "zemaphore.h"
+// #endif
     
 void rwlock_init(rwlock_t *lock) {
     lock->readers = 0;
-    Sem_init(&lock->lock, 1); 
-    Sem_init(&lock->writelock, 1); 
+    sem_init(&lock->lock, 0, 1); 
+    sem_init(&lock->writelock, 0, 1); 
 }
 
 void rwlock_acquire_readlock(rwlock_t *lock) {
-    Sem_wait(&lock->lock);
+    sem_wait(&lock->lock);
     lock->readers++;
     if (lock->readers == 1)
-	Sem_wait(&lock->writelock);
-    Sem_post(&lock->lock);
+	sem_wait(&lock->writelock);
+    sem_post(&lock->lock);
 }
 
 void rwlock_release_readlock(rwlock_t *lock) {
-    Sem_wait(&lock->lock);
+    sem_wait(&lock->lock);
     lock->readers--;
     if (lock->readers == 0)
-	Sem_post(&lock->writelock);
-    Sem_post(&lock->lock);
+	sem_post(&lock->writelock);
+    sem_post(&lock->lock);
 }
 
 void rwlock_acquire_writelock(rwlock_t *lock) {
-    Sem_wait(&lock->writelock);
+    sem_wait(&lock->writelock);
 }
 
 void rwlock_release_writelock(rwlock_t *lock) {
-    Sem_post(&lock->writelock);
+    sem_post(&lock->writelock);
 }
 
 int read_loops;
@@ -78,21 +76,21 @@ void *writer(void *arg) {
     return NULL;
 }
 
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
-	fprintf(stderr, "usage: rwlock readloops writeloops\n");
-	exit(1);
-    }
-    read_loops = atoi(argv[1]);
-    write_loops = atoi(argv[2]);
+// int main(int argc, char *argv[]) {
+//     if (argc != 3) {
+// 	fprintf(stderr, "usage: rwlock readloops writeloops\n");
+// 	exit(1);
+//     }
+//     read_loops = atoi(argv[1]);
+//     write_loops = atoi(argv[2]);
     
-    rwlock_init(&mutex); 
-    pthread_t c1, c2;
-    Pthread_create(&c1, NULL, reader, NULL);
-    Pthread_create(&c2, NULL, writer, NULL);
-    Pthread_join(c1, NULL);
-    Pthread_join(c2, NULL);
-    printf("all done\n");
-    return 0;
-}
+//     rwlock_init(&mutex); 
+//     pthread_t c1, c2;
+//     Pthread_create(&c1, NULL, reader, NULL);
+//     Pthread_create(&c2, NULL, writer, NULL);
+//     Pthread_join(c1, NULL);
+//     Pthread_join(c2, NULL);
+//     printf("all done\n");
+//     return 0;
+// }
     

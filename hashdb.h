@@ -14,5 +14,6 @@ void ht_init();
 void ht_insert(const char *name, uint32_t salary);
 void ht_remove(const char *name);
 hashRecord* ht_search(const char *name);
+uint32_t jenkins_one_at_a_time_hash(const uint8_t* key, size_t length);
 
 #endif // __hashdb_h__
