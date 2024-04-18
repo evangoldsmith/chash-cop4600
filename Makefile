@@ -7,9 +7,9 @@ ifeq ($(OS),Linux)
 	LIBS += -pthread
 endif
 
-SRCS   := hashdb.c \
-	chash.c \
-	rwlock.c
+SRCS   := chash.c \
+	rwlock.c \
+	hashdb.c
 
 OBJS   := ${SRCS:c=o}
 PROGS  := ${SRCS:.c=}
