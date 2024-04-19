@@ -9,12 +9,6 @@
 
 #include <semaphore.h>
 
-
-// #ifdef linux
-// #include <semaphore.h>
-// #elif __APPLE__
-// #include "zemaphore.h"
-// #endif
     
 void rwlock_init(rwlock_t *lock) {
     lock->readers = 0;

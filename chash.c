@@ -6,15 +6,8 @@
 
 #include "hashdb.h"
 #include "rwlock.h"
-
-// #include "common.h"
-// #include "common_threads.h"
-
-#ifdef linux
 #include <semaphore.h>
-#elif __APPLE__
-#include "zemaphore.h"
-#endif
+
 
 // void functionCalls();
 

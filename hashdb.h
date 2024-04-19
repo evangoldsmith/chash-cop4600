@@ -2,6 +2,7 @@
 #define __hashdb_h__
 
 #include <stdint.h>
+#include <stddef.h>
 
 
 typedef struct hash_struct {
