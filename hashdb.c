@@ -49,7 +49,6 @@ void ht_init() {
 
 hashRecord* ht_search(const char *name) {
     uint32_t hash = jenkins_one_at_a_time_hash((const uint8_t*)name, strlen(name));
-    hashRecord *record = NULL;
     // Acquire read lock
     lockAcquisition++;
     print_to_output("READ LOCK ACQUIRED\n"); // Release read lock
@@ -142,7 +141,6 @@ void ht_remove(const char *name) {
     releaseAcquisition++;
     print_to_output("WRITE LOCK RELEASED\n"); // Release write lock
     rwlock_release_writelock(&hash_lock);
-    print_to_output("Record not found\n");
 }
 
 void ht_print_all() {
