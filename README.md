@@ -4,7 +4,7 @@ Concurrent Hash Table
 To run the program on Windows Powershell: type "make" in the terminal, followed by "./chash"
 Another way to run the program is to type "gcc -o chash rwlock.c hashdb.c chash.c -lpthread" followed by "./chash"
 
-To run the program on Mac zsh: type ">make" in the terminal, followed by ">>./clash"
+To run the program on Mac zsh: type "make" in the terminal, followed by "./clash"
 
 To our best efforts, it does not seem to function on wsl on Windows but functions on everything else. Most likely an issue with compatibility.
 
