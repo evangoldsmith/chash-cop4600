@@ -1,4 +1,4 @@
-Num Threads: 11
+Running 11 threads
 INSERT,1874280167,Shigeru Miyamoto,51000
 WRITE LOCK ACQUIRED
 WRITE LOCK RELEASED

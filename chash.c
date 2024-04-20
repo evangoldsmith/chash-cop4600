@@ -82,7 +82,7 @@ int main()
             if (i == 1)
             {
                 numThreads = atoi(token);
-                print_to_output("Num Threads: %d\n", numThreads);
+                print_to_output("Running %d threads\n", numThreads);
             }
             token = strtok(NULL, ",");
         }
